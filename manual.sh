@@ -1,3 +1,4 @@
+!#/bin/bash
 	read -p "Target disk (e.g. /dev/sda /dev/sdb /dev/block/mmcblk0): " TARGET_DISK
 	TARGET_DISK=${TARGET_DISK:-/dev/sdb}
 	read -p "Target ESP partition (e.g. /dev/sda1 /dev/sdb1 /dev/block/mmcblk0p1): " TARGET_PARTITION
@@ -21,7 +22,7 @@ boot1x - PBR sector for exFat formatted partition. Search for file 'boot' in the
 	read -p "Target PBR (Partition Boot Record), default boot1f32: " NEWMBR
 	NEWPBR=${NEWPBR:-boot1f32}
 	read -p "Clover bootfile, default boot6, set to boot7 if cannot initialize hdd: " BOOTFILE
-	BOOTFILE=${NEWPBR:-boot6}
+	BOOTFILE=${BOOTFILE:-boot6}
 	cp ../BootSectors/$NEWMBR ./boot0
 	cp ../BootSectors/$NEWPBR ./boot1
 	cp ../Bootloaders/x64/"$BOOTFILE" ./boot
@@ -37,7 +38,6 @@ boot1x - PBR sector for exFat formatted partition. Search for file 'boot' in the
 	sudo dd if="$TARGET_PARTITION" skip=6 bs=512 count=1 >./origPBR2
 	cp ./boot1 ./newPBR2
 	dd if=./origPBR2 of=./newPBR2 skip=3 seek=3 bs=1 count=87 conv=notrunc
-	
 	sudo dd if=./newPBR1 of="$TARGET_PARTITION" bs=512 count=1 conv=nocreat,notrunc
 	sudo dd if=./newPBR2 of="$TARGET_PARTITION" seek=6 bs=512 count=1 conv=nocreat,notrunc
 	sudo dd if=./newMBR of="$TARGET_DISK" bs=512 count=1 conv=nocreat,notrunc
