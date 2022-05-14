@@ -3,6 +3,10 @@ Clover-Linux-installer
 
 Install Clover UEFI emulation environment from Linux
 
+## smokingjudas's addendum
+
+just get your CloverV2*.zip extracted somewhere, mkdir your tmp in the extracted dir, put my 'manual.sh' in that tmp, chmod +x it and run. yet half-baked, will probably update at once. 
+
 ## Introduction
 
 [Clover EFI bootloader](https://clover-wiki.zetam.org/Home) contains an UEFI emulation environment, which can be used on older systems without UEFI.
